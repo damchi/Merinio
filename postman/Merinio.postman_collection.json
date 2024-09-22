@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "0e6f3324-6545-4178-bcc0-06e8f8b199be",
+		"name": "Merinio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12132211"
+	},
+	"item": [
+		{
+			"name": "Branches",
+			"item": [
+				{
+					"name": "GetListBranches",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/branches",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"branches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save branch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"name\": \"branch ajout\",\n        \"parent_id\": 4,\n        \"requirements\": [6,7],\n        \"restrictions\":[8]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/branches",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"branches"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
