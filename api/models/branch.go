@@ -13,6 +13,7 @@ type branchManagerImpl struct {
 
 type BranchManager interface {
 	FindAll() ([]Branch, error)
+	Find(branchId int) (*Branch, error)
 	Save(branch *Branch) (*Branch, error)
 	FindByParentId(parentID *int) (Branch, error)
 }
@@ -58,6 +59,19 @@ func (m *branchManagerImpl) FindAll() ([]Branch, error) {
 		return nil, result.Error
 	}
 	return branches, nil
+}
+
+func (m *branchManagerImpl) Find(branchId int) (*Branch, error) {
+	var branch Branch
+
+	result := m.db.Where("id = ?", branchId).Find(&branch)
+
+	if result.Error != nil {
+		log.Printf("Fail to retrieve branch: %v", result.Error)
+		return nil, result.Error
+	}
+
+	return &branch, nil
 }
 
 func (m *branchManagerImpl) FindByParentId(parentId *int) (Branch, error) {

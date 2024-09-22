@@ -18,6 +18,18 @@ func GetListBranches(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"branches": branchList})
 }
 
+func GetBranch(c *gin.Context) {
+	strBranchId := c.Params.ByName("branch_id")
+
+	gateway, err := services.GetBranchService(nil).GetBranch(strBranchId)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gateway)
+
+}
 func SaveBranch(c *gin.Context) {
 	var param *models.BranchRequest
 

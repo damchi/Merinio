@@ -3,7 +3,9 @@ package services
 import (
 	"fmt"
 	"gorm.io/gorm"
+	"log"
 	"merinio/api/models"
+	"strconv"
 )
 
 type BranchService struct {
@@ -36,6 +38,25 @@ func (bs BranchService) GetListBranch() ([]models.Branch, error) {
 			return nil, err
 		}
 	}
+	return branches, nil
+}
+
+func (bs BranchService) GetBranch(branchId string) (*models.Branch, error) {
+	branchIdInt, err := strconv.Atoi(branchId)
+	if err != nil {
+		log.Printf("Convert branch id to int : %v", err)
+		return nil, err
+	}
+
+	branches, err := bs.BranchManager.Find(branchIdInt)
+	if err != nil {
+		return branches, err
+	}
+
+	if err := bs.LoadParentData(branches); err != nil {
+		return nil, err
+	}
+
 	return branches, nil
 }
 
