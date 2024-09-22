@@ -51,6 +51,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/branches/:branch_id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"branches",
+								":branch_id"
+							],
+							"variable": [
+								{
+									"key": "branch_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
