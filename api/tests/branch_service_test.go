@@ -93,3 +93,27 @@ func TestLoadParentData(t *testing.T) {
 	assert.NoError(t, err)
 	mockBranchManager.AssertExpectations(t)
 }
+
+func TestFindBranch(t *testing.T) {
+	mockBranchManager := new(MockBranchManager)
+	branchService := services.BranchService{
+		BranchManager: mockBranchManager,
+	}
+
+	branchId := 1
+	expectedBranch := &models.Branch{
+		ID:   branchId,
+		Name: "Test Branch",
+	}
+
+	mockBranchManager.On("Find", branchId).Return(expectedBranch, nil)
+
+	result, err := branchService.BranchManager.Find(branchId)
+
+	// Assertions
+	assert.NoError(t, err)
+	assert.NotNil(t, result)
+	assert.Equal(t, expectedBranch.ID, result.ID)
+	assert.Equal(t, expectedBranch.Name, result.Name)
+	mockBranchManager.AssertExpectations(t)
+}
