@@ -13,6 +13,11 @@ type MockBranchManager struct {
 	mock.Mock
 }
 
+func (m *MockBranchManager) Find(branchId int) (*models.Branch, error) {
+	args := m.Called(branchId)
+	return args.Get(0).(*models.Branch), args.Error(1)
+}
+
 func (m *MockBranchManager) FindAll() ([]models.Branch, error) {
 	args := m.Called()
 	return args.Get(0).([]models.Branch), args.Error(1)
